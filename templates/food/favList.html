@@ -1,0 +1,54 @@
+{% extends '_layout.html' %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% block title %} Add Favorite {% endblock title %} 
+{% block content %}
+<div class="content">
+	<div class="columns is-multiline is-mobile">
+		{% if all_favorites %}
+		<div class="table-container">
+			<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth table-sort">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Name</th>
+						<th>Meal</th>
+						<th>Fat</th>
+						<th>Fat %</th>
+						<th>Carb</th>
+						<th>Carb %</th>
+						<th>Protein</th>
+						<th>Protein %</th>
+						<th>Edit</th>
+            <th>Add</th>
+					</tr>
+				</thead>
+				<tbody> 
+          {% for f in all_favorites %} 
+          <tr>
+					<td>{{f.mealDate.isoformat}}</td>
+					<td>{{f.name}}</td>
+					<td>{{f.meal}}</td>
+					<td>{{f.fats}}</td>
+					<td>{{f.fat_ratio}}</td>
+					<td>{{f.carbohydrate}}</td>
+					<td>{{f.carb_ratio}}</td>
+					<td>{{f.protein}}</td>
+					<td>{{f.protein_ratio}}</td>
+					<td><a class="button is-primary is-light" href="{% url 'food:update' user.pk f.id %}">Edit</a></td>
+          <td><a class="button is-small" href="{% url 'food:create' user.pk %}">Add</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+		{% else %}
+		<div class="column">
+			<p>Please add favorites to list.</p>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<script src="{% static 'js/table-sort.js' %}">
+</script>
+{% endblock content %}

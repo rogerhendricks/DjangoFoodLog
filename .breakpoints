@@ -1,0 +1,96 @@
+{
+  "files": {
+    "food/models.py": [
+      {
+        "id": "ddc8d699-7d6f-4b40-9ab6-c27bf4f273fc",
+        "line": 61,
+        "version": 1128,
+        "index": 2207
+      }
+    ],
+    "static/js/fetchFood.js": [
+      {
+        "id": "f0d16689-2a96-46ec-b347-623e79c53951",
+        "line": 36,
+        "version": 1164,
+        "index": 1801
+      }
+    ],
+    "templates/_layout.html": [
+      {
+        "id": "196f24b0-d675-40e7-96bb-50f75eb6bc97",
+        "line": 9,
+        "version": 837,
+        "index": 316
+      }
+    ],
+    "templates/food/create.html": [
+      {
+        "id": "f983469c-b36d-4aeb-afb9-08664678fbd3",
+        "line": 30,
+        "version": 3986,
+        "index": 778
+      },
+      {
+        "id": "ae9d8278-0761-402d-9547-e67b51fa3299",
+        "line": 205,
+        "version": 3986,
+        "index": 7828
+      },
+      {
+        "id": "e58acefa-7b7c-45df-a3b4-f46fa027ee6f",
+        "line": 205,
+        "version": 3986,
+        "index": 7828
+      },
+      {
+        "id": "fe45644d-a7d7-43e2-8499-7cbf382014fa",
+        "line": 205,
+        "version": 3986,
+        "index": 7828
+      },
+      {
+        "id": "e5760b99-6a98-41ed-a7a5-c60f6166942e",
+        "line": 205,
+        "version": 3986,
+        "index": 7828
+      },
+      {
+        "id": "b5fe1c0c-1426-4f37-8a8e-2e9b55ed862e",
+        "line": 205,
+        "version": 3986,
+        "index": 7828
+      },
+      {
+        "id": "486b75ba-eb55-4d3d-973b-b5dd9511e5cd",
+        "line": 205,
+        "version": 3986,
+        "index": 7828
+      }
+    ],
+    "templates/food/favList.html": [
+      {
+        "id": "971c269a-43b1-415e-b511-e44d3427f40c",
+        "line": 28,
+        "version": 159,
+        "index": 716
+      }
+    ],
+    "templates/food/list.html": [
+      {
+        "id": "c01920ac-d6e5-48ff-a815-1c3658683394",
+        "line": 54,
+        "version": 1456,
+        "index": 1573
+      }
+    ],
+    "users/views.py": [
+      {
+        "id": "44587e0a-5ed9-4a68-9c0a-35040cdf3b63",
+        "line": 1,
+        "version": 115,
+        "index": 0
+      }
+    ]
+  }
+}

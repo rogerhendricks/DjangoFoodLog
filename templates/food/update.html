@@ -1,0 +1,104 @@
+{% extends '_layout.html' %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% block title %} Food {% endblock title %} 
+{% block content %}
+<div class="columns">
+	<div class="column is-half is-offset-one-quarter">
+		<div class="content">
+			<div class="card">
+
+				<form method="POST" class="new-form" id="new-form" enctype="multipart/form-data">
+					{% csrf_token %}
+
+					<header class="card-header">
+						<p class="card-header-title">
+							New Meal
+						</p>
+					</header>
+					<div class="card-content">
+						<div class="content">
+							{% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
+							<div class="columns">
+								<div class="column">
+									<label for="mealDate" class="form-label">Meal Date</label>
+                      {{ form.mealDate|add_class:"form-control datepicker"|attr:"id:mealDate" }}
+                  </div>
+                  <div class="column">
+                    <div class="radio">
+                      <label for="fav" class="radio">Favorite</label><br>
+                        {{ form.favorite|add_class:"radio"|attr:"id:fav" }}
+                    </div>
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                      <label for="name" class="form-label">Name</label>
+                      {{ form.name|add_class:"input is-small"|attr:"id:name"}}
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <label for="meal" class="form-label">Meal</label><br>
+                      {{ form.meal|add_class:"select"|attr:"id:meal" }}
+                  </div>
+                  <div class="column">
+                    <label for="servimgs" class="form-label">Servings</label>
+                      {{ form.serving|add_class:"input is-small"|attr:"id:serving"}}
+                  </div>
+                </div>
+              <div class="columns">
+                  <div class="column">
+                    <label for="fats" class="form-label">Fat</label>
+                      {{ form.fats|add_class:"input is-small"|attr:"id:fats"|attr:"onchange:combinedCalories()" }}
+                  </div>
+                  <div class="column">
+                    <label for="carbs" class="form-label">Carbohydrates</label>
+                      {{ form.carbohydrate|add_class:"input is-small"|attr:"id:carbs"|attr:"onchange:combinedCalories()" }}
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                    <label for="protein" class="form-label">Protein</label>
+                      {{ form.protein|add_class:"input is-small"|attr:"id:protein"|attr:"onchange:combinedCalories()" }}
+                  </div>
+                  <div class="column">
+                    <label for="calories" class="form-label">Calories</label>
+                      {{ form.calories|add_class:"input is-small"|attr:"id:calories" }}
+                  </div>
+                </div>
+                <div class="columns">
+                  <div class="column">
+                      <label for="fatRatio" class="form-label">Fat Ratio</label>
+                      {{ form.fat_ratio|add_class:"input is-small"|attr:"id:fatRatio" }}
+                  </div>
+                  <div class="column">
+                      <label for="carbRatio" class="form-label">Carb Ratio</label>
+                      {{ form.carb_ratio|add_class:"input is-small"|attr:"id:carbRatio" }}
+                  </div>
+                  <div class="column">
+                      <label for="proteinRatio" class="form-label">Protein Ratio</label>
+                      {{ form.protein_ratio|add_class:"input is-small"|attr:"id:proteinRatio" }}
+                  </div>
+                </div>
+            </div>
+          <footer class="card-footer">
+            <div class="field is-grouped">
+              <div class="control">
+                <button type="submit" class="button is-link">Save</button>
+              </div>
+              <div class="control">
+                <a class="button is-link is-light" href="{%url 'food:home' user.pk %}">Cancel</a>
+              </div>
+            </div>
+          </footer>
+        
+      </form>
+    </div>
+</div>
+
+
+  </div>
+</div>
+<script src="{% static 'js/calories.js' %}"></script>
+{% endblock content %}

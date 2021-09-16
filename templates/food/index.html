@@ -1,0 +1,68 @@
+{% extends '_layout.html'  %}
+{% block title %} Food {% endblock title %}
+{% load static %}
+{% block content %}
+<div class="block">
+  <a class="button is-small" href="{% url 'food:daily' user.pk %}">Daily List</a>
+  <a class="button is-small" href="{% url 'food:create' user.pk %}">New Meal</a>
+  <a class="button is-small" href="{% url 'food:favorites' user.pk %}">Add Favorite</a>
+</div>
+<div>
+  <section class="hero is-info">
+    <div class="hero-body">
+      <p class="title is-size-1 has-text-centered">
+        Daily Macro Ratio
+      </p>
+      <div class="columns is-mobile is-multiline is-centered">
+        <div class="column ">
+          <p class="subtitle is-size-1 has-text-centered" id="tfr"></p>
+          <p class="is-size-4 has-text-centered">Fat Ratio</p>
+        </div>
+        <div class="column">
+          <p class="subtitle is-size-1 has-text-centered" id="tcr"></p>
+          <p class="is-size-4 has-text-centered">Carb Ratio</p>
+        </div>
+        <div class="column">
+          <p class="subtitle is-size-1 has-text-centered" id="tpr"></p>
+          <p class="is-size-4 has-text-centered">Protein Ratio</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+</div>
+<div>
+  <section class="hero is-warning">
+    <div class="hero-body">
+      <p class="title is-size-1 has-text-centered">
+        Monthly Macro Ratio
+      </p>
+      <div class="columns is-mobile is-multiline is-centered">
+        <div class="column ">
+          <p class="subtitle is-size-1 has-text-centered" id="mfr"></p>
+          <p class="is-size-4 has-text-centered">Fat Ratio</p>
+        </div>
+        <div class="column">
+          <p class="subtitle is-size-1 has-text-centered" id="mcr"></p>
+          <p class="is-size-4 has-text-centered">Carb Ratio</p>
+        </div>
+        <div class="column">
+          <p class="subtitle is-size-1 has-text-centered" id="mpr"></p>
+          <p class="is-size-4 has-text-centered">Protein Ratio</p>
+        </div>
+      </div>
+
+    </div>
+  </section>
+  </div>
+
+{{ data|json_script:"data" }}
+<script type="text/javascript">
+  const ml_data = JSON.parse(document.getElementById('data').textContent); 
+</script>
+<script src="{% static 'js/foodData.js' %}"></script>
+<script>
+  document.onload = fooddata();
+  //document.onload = resultProductData();
+</script>
+{% endblock content %}

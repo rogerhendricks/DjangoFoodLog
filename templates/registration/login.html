@@ -1,0 +1,22 @@
+{% extends '_layout.html' %}
+{% block title %}Log In{% endblock title %}
+{% block content %}
+<div class="container-fluid">
+<div class="columns is-mobile is-centered">
+  <div class="column is-one-quarter">
+    <div class="box">
+      <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <div class="control" style="">
+          <button class="button is-primary" type="submit">Log In</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+</div>
+
+
+
+{% endblock content %}

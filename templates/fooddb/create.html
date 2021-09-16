@@ -1,0 +1,21 @@
+{% extends '_layout.html' %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% block title %} Create Food {% endblock title %} 
+{% block content %}
+<div class="section">
+
+					<form method="POST" class="new-form" id="new-form" enctype="multipart/form-data">
+						{% csrf_token %}
+            {{form.as_p }}
+              <div class="control">
+                <button type="submit" class="button is-link">Save</button>
+              </div>
+        </form>
+
+  </div>
+
+  
+
+
+{% endblock content %}

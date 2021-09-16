@@ -1,0 +1,20 @@
+{% extends '_layout.html'  %}
+{% block title %} Food {% endblock title %}
+
+{% block content %}
+<div>
+  <a type='button'class='button is-secondary' href="{% url 'fooddb:create' %}">Create</a>
+
+</div>
+<div class="content">
+  <div class="columnns">
+    <div class="column">
+      <P>food Page</P>
+    </div>
+      {% for f in all_foods %}
+      {{ f }}
+      {% endfor %}
+  </div>
+</div>
+
+{% endblock content %}

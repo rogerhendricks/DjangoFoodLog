@@ -1,0 +1,56 @@
+{% extends '_layout.html'  %}
+{% load static %}
+{% block title %} Food {% endblock title %}
+
+{% block content %}
+<div class="block">
+  <button class="button is-small" onclick='daily()'>Today</button>
+  <button class="button is-small" onclick='monthly()'>Monthly</button>
+</div>
+<div class="content">
+  <div class="columns is-multiline is-mobile">
+  {% if all_food %}
+    {% for f in all_food %}
+      <div class="column is-one-quarter">
+
+        <div class="card">
+            <p id="isoDate" hidden>
+                {{f.mealDate.isoformat}}
+            </p>
+          <header class="card-header">
+            <p class="card-header-title" id="mealDate">
+              {{f.mealDate}}
+            </p>
+
+          </header>
+          <div class="card-content">
+            <div class="content">
+              {{f.calories}}
+              <p>Fat ratio: {{f.fat_ratio}}</p>
+              <p>Protein ratio: {{f.protein_ratio}}</p>
+              <p>Carbohydrate ratio: {{f.carb_ratio}}</p>
+            </div>
+          </div>
+          <footer class="card-footer">
+            <div class="field is-grouped">
+              <div class="control">
+                <a  class="card-footer-item" href="{% url 'food:update' user.pk f.id %}">Edit</a>
+              </div>
+              <div class="control">
+                <a class="card-footer-item" href="">Delete</a>
+              </div>
+            </div>
+          </footer>
+        </div>
+
+      </div>
+      {% endfor %}
+  {% else %}
+  <div class="column">
+    <p>Please add food to list.</p>
+  </div>
+  {% endif %}
+  </div>
+</div>
+<script src="{% static 'js/filter.js' %}"></script>
+{% endblock content %}
