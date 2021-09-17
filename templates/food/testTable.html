@@ -1,0 +1,11 @@
+{% extends '_layout.html' %} 
+{% load widget_tweaks %} 
+{% load static %} 
+{% block title %} Food {% endblock title %} 
+{% block content %}
+<section>
+  {% for f in all_foods %}
+  {{f}}
+  {% endfor %}
+</section>
+{% endblock content %}

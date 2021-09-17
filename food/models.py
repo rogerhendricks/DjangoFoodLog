@@ -82,4 +82,6 @@ class TestFood(db.Model):
 
 
   def __str__(self):
-        return '%s %s %s' % (self.meal, self.name, self.food)
+        return '%s %s %s' % (self.mealDate, self.meal, self.food)
+
+

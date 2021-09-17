@@ -33,4 +33,4 @@ class FoodList(ListView):
 
   def get_queryset(self):
       #return Food.objects.filter(mealDate = date.today())
-      return Food.objects.all()
+      return TestFood.objects.all()

@@ -9,9 +9,10 @@ from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMix
 from django.urls import reverse, reverse_lazy
 from datetime import date
 from django.core import serializers
+from django.db import transaction
 # local 
 from food import forms
-from .models import Food, DailyFood
+from .models import Food, DailyFood, TestFood
 
 
 # Error Pages
@@ -91,3 +92,49 @@ class FoodUpdate(UpdateView):
   model = Food
   form_class = forms.FoodForm
   template_name = 'food/update.html'
+
+
+
+class FoodAdd(PermissionRequiredMixin, CreateView):
+    permission_required = ('app.change_client')
+    login_url = '/accounts/login/'
+    model = TestFood
+    form_class = forms.TestFoodForm
+    #formset = forms.FoodFormSet
+    template_name = 'food/testFoodCreate.html'
+
+ 
+    def get_context_data(self, **kwargs):
+            data = super(FoodAdd, self).get_context_data(**kwargs)
+            if self.request.POST:
+                data['food'] = forms.FoodFormSet(self.request.POST, instance=self.object)
+
+            else:
+                data['food'] = forms.FoodFormSet(instance=self.object)
+
+            return data
+
+    def form_valid(self, form):
+        context = self.get_context_data()
+        food = context['food']
+        with transaction.atomic():
+            self.object = form.save()
+            if food.is_valid():
+                food.instance = self.object
+                food.save()
+        return super(FoodAdd, self).form_valid(form)
+
+
+
+class TestFoodList(ListView):
+  login_url = '/accounts/login/'
+  redirect_field_name = 'redirect_to'
+  # template_name = 'food/list.html'
+  template_name = 'food/testTable.html'
+  model = TestFood
+  context_object_name = 'all_foods'
+  paginate_by = 10
+
+  def get_queryset(self):
+      #return Food.objects.filter(mealDate = date.today())
+      return TestFood.objects.all()

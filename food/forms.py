@@ -1,6 +1,6 @@
 from django import forms
-from django.forms import formset_factory
-from .models import (Food, DailyFood)
+from django.forms import formset_factory, inlineformset_factory
+from .models import (Food, DailyFood, TestFood)
 
 class FoodForm(forms.ModelForm):
 
@@ -40,7 +40,7 @@ class FoodForm(forms.ModelForm):
             "mealDate": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
         }
 
-#favoriteFormset = formset_factory(FoodForm, absolute_max=10)
+
 
 class DailyFoodForm(forms.ModelForm):
 
@@ -66,3 +66,27 @@ class DailyFoodForm(forms.ModelForm):
       "client": forms.HiddenInput(),
       "Day": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
     }
+
+
+class TestFoodForm(forms.ModelForm):
+
+  class Meta:
+    model = TestFood
+    fields = [
+      "mealDate",
+      "meal",
+      "serving",
+      "food"
+    ]
+    labels = {
+
+    }
+    widgets = {
+      "client": forms.HiddenInput(),
+      "mealDate": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
+
+    }
+
+FoodFormset = formset_factory(TestFood, max_num = 10, absolute_max=10)
+#LeadFormSet = inlineformset_factory(Client, ImplantedLead, form=ImplatedLeadForm, can_delete=True, exclude=(), extra=0)
+
