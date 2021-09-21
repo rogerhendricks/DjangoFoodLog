@@ -14,10 +14,10 @@ from django.db import transaction
 from food import forms
 from .models import Food, DailyFood, TestFood
 
-
 # Error Pages
 def permission_denied_view(request, exception):
     return render(request, 'errors/403.html')
+
 
 # Base pages.
 class MealPageView(LoginRequiredMixin,TemplateView):
@@ -31,7 +31,6 @@ class MealPageView(LoginRequiredMixin,TemplateView):
     d = Food.objects.filter(client = user).values()
     context['data'] = list(d)
     return context
-
 
 
 class AboutPageView(TemplateView):
@@ -52,8 +51,6 @@ class FoodCreate(CreateView):
     context['data'] = list(d)
     return context
 
-
-
   def form_valid(self, form):
     form.instance.client = self.request.user
     return super().form_valid(form)
@@ -71,6 +68,7 @@ class FoodList(ListView):
   def get_queryset(self):
       #return Food.objects.filter(mealDate = date.today())
       return Food.objects.all()
+
 
 class FavoriteList(ListView):
   login_url = '/accounts/login/'
@@ -94,36 +92,47 @@ class FoodUpdate(UpdateView):
   template_name = 'food/update.html'
 
 
-
-class FoodAdd(PermissionRequiredMixin, CreateView):
-    permission_required = ('app.change_client')
+class FoodAdd(LoginRequiredMixin, CreateView):
+    # permission_required = ('app.change_client')
+    # login_url = '/accounts/login/'
     login_url = '/accounts/login/'
+    redirect_field_name = 'redirect_to'
     model = TestFood
     form_class = forms.TestFoodForm
-    #formset = forms.FoodFormSet
+    #formset = forms.FoodFormSet()
     template_name = 'food/testFoodCreate.html'
+    success_url = reverse_lazy('food:listfood')
 
- 
+
     def get_context_data(self, **kwargs):
             data = super(FoodAdd, self).get_context_data(**kwargs)
+            #client = self.kwargs.get('username')
+            
             if self.request.POST:
-                data['food'] = forms.FoodFormSet(self.request.POST, instance=self.object)
-
+                
+                #data['client'] = self.kwargs.get('username')
+                #client = self.request.user.id
+                data['food'] = forms.FoodFormSet(self.request.POST)  # data['food'] = forms.FoodFormSet(self.request.POST)  
+                #data['food']['client'] = self.request.user.id
+                print(data.values())
             else:
-                data['food'] = forms.FoodFormSet(instance=self.object)
-
+                data['food'] = forms.FoodFormSet()
             return data
 
-    def form_valid(self, form):
-        context = self.get_context_data()
-        food = context['food']
-        with transaction.atomic():
-            self.object = form.save()
-            if food.is_valid():
-                food.instance = self.object
-                food.save()
-        return super(FoodAdd, self).form_valid(form)
 
+    def form_valid(self, form):
+      context = self.get_context_data()
+      food = context['food']
+      with transaction.atomic():
+          self.object = form.save()
+          if food.is_valid():
+              #food['client'] = self.request.user.id
+              food.instance = self.object
+              food['client'] = self.request.user.id
+              food.save()
+          else: 
+            print(food.errors)
+      return super(FoodAdd, self).form_valid(form)
 
 
 class TestFoodList(ListView):

@@ -1,10 +1,18 @@
 {
   "files": {
+    ".replit": [
+      {
+        "id": "ebaa0579-2432-458d-bdf6-5228a31eb4af",
+        "line": 3,
+        "version": 1,
+        "index": 69
+      }
+    ],
     "food/models.py": [
       {
         "id": "ddc8d699-7d6f-4b40-9ab6-c27bf4f273fc",
         "line": 61,
-        "version": 1161,
+        "version": 1190,
         "index": 2207
       }
     ],

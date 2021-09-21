@@ -7,8 +7,11 @@
   <form method="POST" class="new-form" id="new-form" enctype="multipart/form-data">
 		{% csrf_token %}
     <div class="content">
+      {{ food.management_form }}
+      {% for form in food %}
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
       {{ form.as_table }}
+      {% endfor %}
         <div class="control">
           <button type="submit" class="button is-link">Save</button>
         </div>

@@ -3,7 +3,12 @@
 {% load static %} 
 {% block title %} Food {% endblock title %} 
 {% block content %}
+
 <section>
+  <div>
+  <a type='button'class='button is-secondary' href="{% url 'food:addfood' user.pk %}">Create</a>
+
+</div>
   {% for f in all_foods %}
   {{f}}
   {% endfor %}

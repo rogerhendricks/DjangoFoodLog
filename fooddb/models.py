@@ -22,7 +22,7 @@ class Food(db.Model):
       ordering = ('-name',)
 
     def get_absolute_url(self):
-        return reverse('food:home')
+        return reverse('fooddb:list')
 
 
     def __str__(self):
