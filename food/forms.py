@@ -1,5 +1,5 @@
 from django import forms
-from django.forms import formset_factory, inlineformset_factory
+from django.forms import formset_factory, inlineformset_factory, modelformset_factory
 from .models import (Food, DailyFood, TestFood)
 from fooddb.models import Food as fooddb
 
@@ -79,16 +79,17 @@ class TestFoodForm(forms.ModelForm):
       "meal",
       "serving",
       "food",
-      #"client"
+      "client"
     ]
     labels = {
 
     }
     widgets = {
-      "client": forms.HiddenInput(),
+      #"client": forms.HiddenInput(),
       "mealDate": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
     }
 
-FoodFormSet = formset_factory(TestFoodForm, max_num = 10, absolute_max=10)
+#FoodFormSet = formset_factory(TestFoodForm, max_num = 10, absolute_max=10)
+FoodFormSet = modelformset_factory(TestFood,fields={"mealDate", "meal", "serving","food", "client"}, extra=1)
 #FoodFormSet = inlineformset_factory(TestFoodForm, fooddb, form=TestFoodForm, can_delete=True, exclude=(), extra=1)
 

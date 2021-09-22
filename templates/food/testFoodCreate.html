@@ -4,13 +4,14 @@
 {% block title %} Food {% endblock title %} 
 {% block content %}
 <section>
-  <form method="POST" class="new-form" id="new-form" enctype="multipart/form-data">
+  <form method="POST" class="new-form" id="form-container" enctype="multipart/form-data">
 		{% csrf_token %}
     <div class="content">
-      {{ food.management_form }}
-      {% for form in food %}
+      {{ food_formset.management_form }}
+      {{ food_formset.errors }}
+      {% for form in food_formset %}
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
-      {{ form.as_table }}
+      {{ form.as_p }}
       {% endfor %}
         <div class="control">
           <button type="submit" class="button is-link">Save</button>

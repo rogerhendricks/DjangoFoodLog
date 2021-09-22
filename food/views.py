@@ -10,6 +10,7 @@ from django.urls import reverse, reverse_lazy
 from datetime import date
 from django.core import serializers
 from django.db import transaction
+from django.shortcuts import redirect
 # local 
 from food import forms
 from .models import Food, DailyFood, TestFood
@@ -92,47 +93,70 @@ class FoodUpdate(UpdateView):
   template_name = 'food/update.html'
 
 
-class FoodAdd(LoginRequiredMixin, CreateView):
+# class FoodAdd(LoginRequiredMixin, CreateView):
+#     # permission_required = ('app.change_client')
+#     # login_url = '/accounts/login/'
+#     login_url = '/accounts/login/'
+#     redirect_field_name = 'redirect_to'
+#     model = TestFood
+#     form_class = forms.TestFoodForm
+#     #formset = forms.FoodFormSet()
+#     template_name = 'food/testFoodCreate.html'
+#     success_url = reverse_lazy('food:listfood')
+
+
+#     def get_context_data(self, **kwargs):
+#             data = super(FoodAdd, self).get_context_data(**kwargs)
+#             #client = self.kwargs.get('username')
+            
+#             if self.request.POST:
+                
+#                 #data['client'] = self.kwargs.get('username')
+#                 #client = self.request.user.id
+#                 data['food'] = forms.FoodFormSet(self.request.POST)  # data['food'] = forms.FoodFormSet(self.request.POST)  
+#                 #data['food']['client'] = self.request.user.id
+#                 print(data.values())
+#             else:
+#                 data['food'] = forms.FoodFormSet()
+#             return data
+
+
+#     def form_valid(self, form):
+#       context = self.get_context_data()
+#       food = context['food']
+#       with transaction.atomic():
+#           self.object = form.save()
+#           if food.is_valid():
+#               #food['client'] = self.request.user.id
+#               food.instance = self.object
+#               food['client'] = self.request.user.id
+#               food.save()
+#           else: 
+#             print(food.errors)
+#       return super(FoodAdd, self).form_valid(form)
+
+class FoodAdd(LoginRequiredMixin, TemplateView):
     # permission_required = ('app.change_client')
     # login_url = '/accounts/login/'
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
     model = TestFood
-    form_class = forms.TestFoodForm
-    #formset = forms.FoodFormSet()
     template_name = 'food/testFoodCreate.html'
-    success_url = reverse_lazy('food:listfood')
 
-
-    def get_context_data(self, **kwargs):
-            data = super(FoodAdd, self).get_context_data(**kwargs)
-            #client = self.kwargs.get('username')
-            
-            if self.request.POST:
-                
-                #data['client'] = self.kwargs.get('username')
-                #client = self.request.user.id
-                data['food'] = forms.FoodFormSet(self.request.POST)  # data['food'] = forms.FoodFormSet(self.request.POST)  
-                #data['food']['client'] = self.request.user.id
-                print(data.values())
-            else:
-                data['food'] = forms.FoodFormSet()
-            return data
-
-
-    def form_valid(self, form):
-      context = self.get_context_data()
-      food = context['food']
-      with transaction.atomic():
-          self.object = form.save()
-          if food.is_valid():
-              #food['client'] = self.request.user.id
-              food.instance = self.object
-              food['client'] = self.request.user.id
-              food.save()
-          else: 
-            print(food.errors)
-      return super(FoodAdd, self).form_valid(form)
+    def get(self, *args, **kwargs):
+      #formset = forms.FoodFormSet(queryset=TestFood.objects.none())
+      formset = forms.FoodFormSet(queryset=TestFood.objects.none(), auto_id=False)
+      #formset.auto_id = False
+      #formset.use_required_attribute = False
+      return self.render_to_response({'food_formset':formset})
+    
+    def post(self, *args, **kwargs):
+      formset = forms.FoodFormSet(data=self.request.POST, auto_id=False)
+      if formset.is_valid():
+        
+        formset.save()
+        user = self.request.user.id
+        return redirect(reverse_lazy('food:listfood',  kwargs={'username': user}))
 
 
 class TestFoodList(ListView):
