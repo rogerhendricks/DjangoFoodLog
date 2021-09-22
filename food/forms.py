@@ -90,6 +90,6 @@ class TestFoodForm(forms.ModelForm):
     }
 
 #FoodFormSet = formset_factory(TestFoodForm, max_num = 10, absolute_max=10)
-FoodFormSet = modelformset_factory(TestFood,fields={"mealDate", "meal", "serving","food", "client"}, extra=1)
+FoodFormSet = modelformset_factory(TestFood,fields={"mealDate", "meal", "serving","food", "client"})
 #FoodFormSet = inlineformset_factory(TestFoodForm, fooddb, form=TestFoodForm, can_delete=True, exclude=(), extra=1)
 

@@ -6,17 +6,46 @@
 <section>
   <form method="POST" class="new-form" id="form-container" enctype="multipart/form-data">
 		{% csrf_token %}
-    <div class="content">
+    
       {{ food_formset.management_form }}
-      {{ food_formset.errors }}
       {% for form in food_formset %}
+      <div class='box' id="food-form">
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
-      {{ form.as_p }}
+      {{ form.as_table }}
+      </div>
       {% endfor %}
-        <div class="control">
+        <div class="control" id="control">
           <button type="submit" class="button is-link">Save</button>
+          <button class="button is-primary is-light" id="add-form" type="button">Add Another</button>
         </div>
-    </div>
+   
   </form>
 </section>
+
+
+<script>
+    let foodForm = document.querySelectorAll("#food-form")
+    let container = document.querySelector("#form-container")
+    let addButton = document.querySelector("#add-form")
+    let buttonControl = document.querySelector("#control")
+    let totalForms = document.getElementsByName("form-TOTAL_FORMS")
+
+    let formNum = foodForm.length-1
+    // addButton.addEventListener('click', addForm)
+    addButton.addEventListener('click', addForm)
+
+    function addForm(e){
+        e.preventDefault()
+        let newForm = foodForm[0].cloneNode(true)
+        let formRegex = RegExp(`form-(\\d){1}-`,'g')
+
+        formNum++
+        newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
+        container.insertBefore(newForm, buttonControl)
+        //totalForms.setAttribute('value', `${formNum+1}`)
+        totalForms.value = formNum+1;
+        console.log(totalForms)
+    }
+</script>
+
 {% endblock content %}
