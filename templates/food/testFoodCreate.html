@@ -34,6 +34,12 @@
     // addButton.addEventListener('click', addForm)
     addButton.addEventListener('click', addForm)
 
+    function add(){
+      formNum++
+      totalForms.setAttribute('value', `${formNum+1}`)
+      console.log(totalForms); 
+    }
+
     function addForm(e){
         e.preventDefault()
         let newForm = foodForm[0].cloneNode(true)
@@ -42,8 +48,8 @@
         formNum++
         newForm.innerHTML = newForm.innerHTML.replace(formRegex, `form-${formNum}-`)
         container.insertBefore(newForm, buttonControl)
-        //totalForms.setAttribute('value', `${formNum+1}`)
-        totalForms.value = formNum+1;
+        totalForms[0].setAttribute('value', `${formNum+1}`)
+        //totalForms.value = formNum+1;
         console.log(totalForms)
     }
 </script>
