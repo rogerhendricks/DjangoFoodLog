@@ -1,16 +1,13 @@
 from django import forms
 from django.forms import formset_factory
-from .models import (Food, DailyFood)
+from .models import (Food)
 
 class FoodForm(forms.ModelForm):
 
     class Meta:
         model = Food
         fields = [
-            
-            "meal",
             "name",
-            "serving",
             "fats",
             "carbohydrate",
             "protein",
@@ -18,7 +15,6 @@ class FoodForm(forms.ModelForm):
             "fat_ratio",
             "carb_ratio",
             "protein_ratio",
-            "favorite",
             #"client"
         ]
         labels = {

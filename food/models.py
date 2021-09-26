@@ -80,6 +80,10 @@ class TestFood(db.Model):
   class Meta:
       ordering = ('-mealDate',)
 
+  def get_absolute_url(self):
+        return reverse('food:listfood', kwargs={"pk": self.pk})
 
   def __str__(self):
-        return '%s %s %s' % (self.meal, self.name, self.food)
+        return '%s %s %s' % (self.mealDate, self.meal, self.food)
+
+

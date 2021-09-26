@@ -1,0 +1,72 @@
+{% extends '_layout.html' %} 
+{% load static %} 
+{% block title %} Food {% endblock title %} 
+{% block content %}
+<div class="content">
+    <div class="columns">
+      <div class="column">
+      <a type='button'class='button is-secondary' href="{% url 'food:addfood' user.pk %}">Create</a>
+    </div>
+  </div>
+	<div class="columns is-multiline is-mobile">
+		{% if all_food %}
+		<div class="table-container">
+			<table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth table-sort">
+				<thead>
+					<tr>
+						<th>Date</th>
+						<th>Name</th>
+						<th>Meal</th>
+						<th>Fav</th>
+						<th>Fat</th>
+						<th>Fat %</th>
+						<th>Carb</th>
+						<th>Carb %</th>
+						<th>Protein</th>
+						<th>Protein %</th>
+						<th>Edit</th>
+						<th>Delete</th>
+					</tr>
+				</thead>
+				<tbody> 
+          {% for f in all_food %} 
+          <tr>
+					<td>{{f.mealDate.isoformat}}</td>
+					<td>{{f.food.name}}</td>
+					<td>{{f.meal}}</td>
+					<td>
+						{% if f.food.favorite %}
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart-fill" viewBox="0 0 16 16">
+							<path fill-rule="evenodd" d="M8 1.314C12.438-3.248 23.534 4.735 8 15-7.534 4.736 3.562-3.248 8 1.314z" />
+						</svg>
+						{% else %}
+						<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-heart" viewBox="0 0 16 16">
+							<path d="m8 2.748-.717-.737C5.6.281 2.514.878 1.4 3.053c-.523 1.023-.641 2.5.314 4.385.92 1.815 2.834 3.989 6.286 6.357 3.452-2.368 5.365-4.542 6.286-6.357.955-1.886.838-3.362.314-4.385C13.486.878 10.4.28 8.717 2.01L8 2.748zM8 15C-7.333 4.868 3.279-3.04 7.824 1.143c.06.055.119.112.176.171a3.12 3.12 0 0 1 .176-.17C12.72-3.042 23.333 4.867 8 15z"
+							/>
+						</svg>
+						{% endif %}
+					</td>
+					<td>{{f.food.fats}}</td>
+					<td>{{f.food.fat_ratio}}</td>
+					<td>{{f.food.carbohydrate}}</td>
+					<td>{{f.food.carb_ratio}}</td>
+					<td>{{f.food.protein}}</td>
+					<td>{{f.food.protein_ratio}}</td>
+					<td><a class="button is-primary is-light" href="{% url 'food:update' user.pk f.id %}">Edit</a></td>
+					<td><a class="button is-danger is-light" href="">Delete</a></td>
+					</tr>
+					{% endfor %}
+				</tbody>
+			</table>
+		</div>
+
+		{% else %}
+		<div class="column">
+			<p>Please add food to list.</p>
+		</div>
+		{% endif %}
+	</div>
+</div>
+<script src="{% static 'js/table-sort.js' %}">
+</script>
+{% endblock content %}

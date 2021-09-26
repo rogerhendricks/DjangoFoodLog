@@ -1,7 +1,7 @@
 # imports db for ORM
 from django.db import models as db
 # imports settings to use AUTH_USER_MODEL
-from django.conf import settings
+#from django.conf import settings
 #from django.core.validators import FileExtensionValidator, MinValueValidator, MaxValueValidator
 #from datetime import datetime
 from django.urls import reverse
@@ -22,7 +22,7 @@ class Food(db.Model):
       ordering = ('-name',)
 
     def get_absolute_url(self):
-        return reverse('food:home')
+        return reverse('fooddb:list')
 
 
     def __str__(self):

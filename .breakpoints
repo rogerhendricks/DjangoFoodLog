@@ -1,10 +1,18 @@
 {
   "files": {
+    ".replit": [
+      {
+        "id": "ebaa0579-2432-458d-bdf6-5228a31eb4af",
+        "line": 3,
+        "version": 1,
+        "index": 69
+      }
+    ],
     "food/models.py": [
       {
         "id": "ddc8d699-7d6f-4b40-9ab6-c27bf4f273fc",
         "line": 61,
-        "version": 1128,
+        "version": 1190,
         "index": 2207
       }
     ],
@@ -82,6 +90,20 @@
         "line": 54,
         "version": 1456,
         "index": 1573
+      }
+    ],
+    "templates/food/testFoodCreate.html": [
+      {
+        "id": "e7908b51-fa41-4aca-a110-41d39fcee409",
+        "line": 35,
+        "version": 842,
+        "index": 1214
+      },
+      {
+        "id": "b382b226-f832-4cbd-bb1e-e047688a8bf5",
+        "line": 35,
+        "version": 842,
+        "index": 1215
       }
     ],
     "users/views.py": [
