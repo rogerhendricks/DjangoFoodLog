@@ -96,14 +96,14 @@
       {
         "id": "e7908b51-fa41-4aca-a110-41d39fcee409",
         "line": 35,
-        "version": 717,
-        "index": 1168
+        "version": 842,
+        "index": 1214
       },
       {
         "id": "b382b226-f832-4cbd-bb1e-e047688a8bf5",
         "line": 35,
-        "version": 717,
-        "index": 1169
+        "version": 842,
+        "index": 1215
       }
     ],
     "users/views.py": [

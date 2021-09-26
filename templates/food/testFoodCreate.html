@@ -9,7 +9,7 @@
     
       {{ food_formset.management_form }}
       {% for form in food_formset %}
-      <div class='box' id="food-form">
+      <div class='box' id="food-form" style="background-color: hsl(219, 70%, 96%);">
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
       {{ form.as_table }}
       </div>
@@ -33,12 +33,6 @@
     let formNum = foodForm.length-1
     // addButton.addEventListener('click', addForm)
     addButton.addEventListener('click', addForm)
-
-    function add(){
-      formNum++
-      totalForms.setAttribute('value', `${formNum+1}`)
-      console.log(totalForms); 
-    }
 
     function addForm(e){
         e.preventDefault()

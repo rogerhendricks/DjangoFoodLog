@@ -3,8 +3,9 @@
 {% load static %}
 {% block content %}
 <div class="block">
-  <a class="button is-small" href="{% url 'food:daily' user.pk %}">Daily List</a>
-  <a class="button is-small" href="{% url 'food:create' user.pk %}">New Meal</a>
+  <a class="button is-small" href="{% url 'food:dailyfood' user.pk %}">Daily List</a>
+  <a class="button is-small" href="{% url 'food:daily' user.pk %}">All Food</a>
+  <a class="button is-small" href="{% url 'food:create' user.pk %}">Add Food</a>
   <a class="button is-small" href="{% url 'food:favorites' user.pk %}">Add Favorite</a>
 </div>
 <div>
