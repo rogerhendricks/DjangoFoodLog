@@ -24,22 +24,32 @@ async function fetchFood(){
 };
 
 
-function displayFood(json){
-    console.log(json.product.nutriments);
-    //document.getElementById('json').innerHTML = json.product.nutriments.carbohydrates_serving;
-    document.getElementById('brandName').innerHTML = json.product.brands;
-    document.getElementById('calServing').innerHTML = json['product']['nutriments']['energy-kcal_serving'];
-    document.getElementById('fatsServing').innerHTML = (json.product.nutriments.fat_serving).toFixed(2);
-    document.getElementById('satFatsServing').innerHTML = json['product']['nutriments']['saturated-fat_serving'];
-    document.getElementById('proServing').innerHTML = (json.product.nutriments.proteins_serving).toFixed(2);
-    document.getElementById('carbsServing').innerHTML = (json.product.nutriments.carbohydrates_serving).toFixed(2);
+// function displayFood(json){
+//     console.log(json.product.nutriments);
+//     //document.getElementById('json').innerHTML = json.product.nutriments.carbohydrates_serving;
+//     document.getElementById('brandName').innerHTML = json.product.brands;
+//     document.getElementById('calories').innerHTML = json['product']['nutriments']['energy-kcal_serving'];
+//     document.getElementById('fatsServing').innerHTML = (json.product.nutriments.fat_serving).toFixed(2);
+//     document.getElementById('satFatsServing').innerHTML = json['product']['nutriments']['saturated-fat_serving'];
+//     document.getElementById('proServing').innerHTML = (json.product.nutriments.proteins_serving).toFixed(2);
+//     document.getElementById('carbsServing').innerHTML = (json.product.nutriments.carbohydrates_serving).toFixed(2);
+//     document.getElementById('tableSugars').innerHTML = json.product.nutriments.sugars_serving;
+// };
+
+
+function placeFood(json){
+    document.getElementById('brandName').value = json.product.brands;
+    document.getElementById('calories').value = json['product']['nutriments']['energy-kcal_serving'];
+    document.getElementById('tableFats').value = (json.product.nutriments.fat_serving).toFixed(2);
+    document.getElementById('tableSatFats').innerHTML = json['product']['nutriments']['saturated-fat_serving'];
+    document.getElementById('tableProtein').value = (json.product.nutriments.proteins_serving).toFixed(2);
+    document.getElementById('tableCarbs').value = (json.product.nutriments.carbohydrates_serving).toFixed(2);
     document.getElementById('sugarsServing').innerHTML = json.product.nutriments.sugars_serving;
-};
+}
 
-
-function useFood(){
-  document.getElementById('name').value = document.getElementById('brandName').innerHTML;
-  document.getElementById('fats').value = document.getElementById('fatsServing').innerHTML;
-  document.getElementById('carbs').value = document.getElementById('carbsServing').innerHTML;
-  document.getElementById('protein').value = document.getElementById('proServing').innerHTML;
-};
+// function useFood(){
+//   document.getElementById('name').value = document.getElementById('brandName').innerHTML;
+//   document.getElementById('tableFats').value = document.getElementById('fatsServing').innerHTML;
+//   document.getElementById('tableCarbs').value = document.getElementById('carbsServing').innerHTML;
+//   document.getElementById('tableProtein').value = document.getElementById('proServing').innerHTML;
+// };
