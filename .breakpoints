@@ -19,9 +19,9 @@
     "static/js/fetchFood.js": [
       {
         "id": "f0d16689-2a96-46ec-b347-623e79c53951",
-        "line": 36,
-        "version": 1164,
-        "index": 1801
+        "line": 32,
+        "version": 1484,
+        "index": 1497
       }
     ],
     "templates/_layout.html": [

@@ -9,21 +9,28 @@ class FoodForm(forms.ModelForm):
         fields = [
             "name",
             "fats",
+            "sat_fats",
             "carbohydrate",
+            "sugars",
             "protein",
+            "salt",
             "calories",
             "fat_ratio",
             "carb_ratio",
             "protein_ratio",
-            #"client"
+            "serving_size"
         ]
         labels = {
           'name':'Name',
           'fat': 'Fat',
+          'sat_fats':'Saturated Fats',
           'carbohydrate': 'Carbohydrate',
+          'sugars':'Sugars',
           'protein': 'Protein',
+          'salt':'Salt',
           'calories': 'Calories',
           'fat_ratio': 'Fat Ratio',
           'carb_ratio': 'Carb Ratio',
           'protein_ratio': 'Protein Ratio',
+          'serving_size':'Serving Size'
         }

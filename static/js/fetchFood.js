@@ -7,17 +7,13 @@ async function fetchFood(){
   console.log('button pressed');
   let barcode = document.getElementById('foodSearch').value;
   const url = `https://world.openfoodfacts.org/api/v0/product/${barcode}.json`;
-  console.log(url);
+
   let response = await fetch(url);
   if (response.ok) { // if HTTP-status is 200-299
     // get the response body (the method explained below)
     let json = await response.json();
     console.log(json);
     return json;
-    //document.getElementById('name').innerHTML = json.product.brands;
-    //document.getElementById('carbs').value = json.product.nutriments.carbohydrates;
-    //document.getElementById('pro').value = json.product.nutriments.proteins;
-    //document.getElementById('fats').value = json.product.nutriments.fat;
   } else {
     alert("HTTP-Error: " + response.status);
   }
@@ -41,10 +37,11 @@ function placeFood(json){
     document.getElementById('brandName').value = json.product.brands;
     document.getElementById('calories').value = json['product']['nutriments']['energy-kcal_serving'];
     document.getElementById('tableFats').value = (json.product.nutriments.fat_serving).toFixed(2);
-    document.getElementById('tableSatFats').innerHTML = json['product']['nutriments']['saturated-fat_serving'];
+    document.getElementById('tableSatFats').value = (json['product']['nutriments']['saturated-fat_serving']).toFixed(2);
     document.getElementById('tableProtein').value = (json.product.nutriments.proteins_serving).toFixed(2);
     document.getElementById('tableCarbs').value = (json.product.nutriments.carbohydrates_serving).toFixed(2);
-    document.getElementById('sugarsServing').innerHTML = json.product.nutriments.sugars_serving;
+    document.getElementById('tableSugars').value = (json.product.nutriments.sugars_serving).toFixed(2);
+    document.getElementById('tableSalt').value = (json.product.nutriments.salt).toFixed(2);
 }
 
 // function useFood(){

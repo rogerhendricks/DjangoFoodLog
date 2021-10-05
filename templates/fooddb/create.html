@@ -5,11 +5,19 @@
 {% block content %}
 
 <div class="section">
+  {% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li {% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
   <div class="columns">
     <div class="column is-half is-offset-one-quarter">
       <div class="card">
         <form method="POST" class="new-form" id="new-form" enctype="multipart/form-data">
               {% csrf_token %}
+              {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
           <header class="card-header">
             <p class="card-header-title">
                 <label for="name" class="form-label" style="padding-right: 10px">Name</label>
@@ -19,12 +27,11 @@
           <div class="card-content">
             <div class="field">
               <div class="control">
-                  <input class="input" type="text" id="foodSearch" placeholder="Barcode #">
+                  <input class="input" type="text" id="foodSearch" placeholder="Barcode">
               </div>
               <div class="control">
                 <button type="button" class="button is-primary is-light" onclick='fetchFood().then(placeFood)'>Search</button>
               </div>
-              
             </div>
             <table class="table">
               <thead>
@@ -40,7 +47,7 @@
                 </tr>
                   <tr style="background-color: azure;">
                   <th>-Saturated fat (g)</th>
-                  <td><p id="tableSatFats"></p></td>
+                  <td>{{ form.sat_fats|add_class:"input is-small"|attr:"id:tableSatFats"|attr:"" }}</td>
                 </tr>
                 <tr>
                   <th>Carbohydrates (g)</th>
@@ -48,11 +55,19 @@
                 </tr>
                 <tr style="background-color: azure;">
                   <th>- Sugars (g)</th>
-                  <td><p id="sugarsServing"></p></td>
+                  <td>{{ form.sugars|add_class:"input is-small"|attr:"id:tableSugars"|attr:"" }}</td>
                 </tr>
                   <tr>
                   <th>Protein (g)</th>
                   <td>{{ form.protein|add_class:"input is-small"|attr:"id:tableProtein"|attr:"onchange:combinedCalories()" }}</td>
+                </tr>
+                <tr>
+                  <th>Salt (mg)</th>
+                  <td>{{ form.salt|add_class:"input is-small"|attr:"id:tableSalt"|attr:"" }}</td>
+                </tr>
+                <tr>
+                  <th>Serving Size (grams/ml)</th>
+                  <td >{{ form.serving_size|add_class:"input is-small"|attr:"id:serving_size" }}</td>
                 </tr>
                 <tr>
                   <th>Calories (kcal)</th>
@@ -60,6 +75,14 @@
                 </tr>
               </tbody>
             </table>
+            <div class="columns">
+              <div class="column is-half is-offset-one-quarter">
+                <canvas id="ratioChart" width="250" height="250"></canvas>
+                {{ form.fat_ratio|attr:"id:fatRatio"|attr:"readonly"|attr:"type:hidden" }}
+                {{ form.carb_ratio|attr:"id:carbRatio"|attr:"readonly"|attr:"type:hidden" }}
+                {{ form.protein_ratio|attr:"id:proteinRatio"|attr:"readonly"|attr:"type:hidden" }}
+              </div>
+            </div>
             <footer class="card-footer">
               <div class="field is-grouped" style="padding-top: 10px">
                 <div class="control">
@@ -77,69 +100,6 @@
         </form>
       </div>
     </div>
- 
-
-
-<!-- <div class="column is-half">
-        <div class="card">
-          <div class="card-header">
-            <div class="card-header-title">Search for food</div>
-          </div>
-          <div class="card-content">
-            <input class="input" type="text" id="foodSearch" placeholder="Barcode #">
-
-                <p>Showing information for:</p>
-                <p><strong><span id="brandName"></span></strong></p>
-                <table class="table">
-                  <thead>
-                    <tr>
-                      <th>Nutrition Facts</th>
-                      <th>Per serving</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-
-                  <tr>
-                    <th>Fat (g)</th>
-                    <td><span id="fatsServing"></span></td>
-                  </tr>
-                    <tr style="background-color: azure;">
-                    <th>-Saturated fat (g)</th>
-                    <td><span id="satFatsServing"></span></td>
-                  </tr>
-                  <tr>
-                    <th>Carbohydrates (g)</th>
-                    <td><span id="carbsServing"></span></td>
-                  </tr>
-                  <tr style="background-color: azure;">
-                    <th>- Sugars (g)</th>
-                    <td><span id="sugarsServing"></span></td>
-                  </tr>
-                    <tr>
-                    <th>Protein (g)</th>
-                    <td><span id="proServing"></span></td>
-                  </tr>
-                  <tr>
-                    <th>Calories (kcal)</th>
-                    <td ><span id="calServing"></span></td>
-                  </tr>
-                  </tbody>
-                  </table>
-
-                  <footer class="card-footer">
-                    <div class="field is-grouped" style="padding-top: 10px">
-                    <div class="control" >
-                    <button type="button" class="button is-link is-light" onClick='fetchFood().then(displayFood)'>Search</button>
-                    </div>
-                    <div class="control" >
-                    <button type="button" class="button is-primary is-light" onClick='useFood()'>Use</button>
-                    </div>
-                    </div>
-                    </footer>
-            </div>
-
-        </div>
-  </div> -->
  </div>
 </div>
 
@@ -147,6 +107,7 @@
 
 
 {{ data|json_script:"favData" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 <script type="text/javascript">
   const fav_data = JSON.parse(document.getElementById('favData').textContent); 
   console.log(fav_data);
@@ -166,4 +127,5 @@
 </script>
 <script src="{% static 'js/calories.js' %}"></script>
 <script src="{% static 'js/fetchFood.js' %}"></script>
+<!-- <script src="{% static 'js/chartData.js' %}"></script> -->
 {% endblock content %}
