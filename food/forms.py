@@ -79,7 +79,8 @@ class TestFoodForm(forms.ModelForm):
       "meal",
       "serving",
       "food",
-      "client"
+      "client",
+      "calories"
     ]
     labels = {
 

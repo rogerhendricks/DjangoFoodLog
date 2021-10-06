@@ -18,6 +18,9 @@
         <form method="POST" class="new-form" id="new-form" enctype="multipart/form-data">
               {% csrf_token %}
               {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
+              {% for errors in form.errors %}
+              {{errors}}
+              {% endfor%}
           <header class="card-header">
             <p class="card-header-title">
                 <label for="name" class="form-label" style="padding-right: 10px">Name</label>

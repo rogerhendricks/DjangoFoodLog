@@ -24,6 +24,8 @@
 						<th>Carb %</th>
 						<th>Protein</th>
 						<th>Protein %</th>
+            <th>Servings</th>
+            <th>Calories</th>
 						<th>Edit</th>
 						<th>Delete</th>
 					</tr>
@@ -52,6 +54,8 @@
 					<td>{{f.food.carb_ratio}}</td>
 					<td>{{f.food.protein}}</td>
 					<td>{{f.food.protein_ratio}}</td>
+          <td>{{f.serving}}</td>
+          <td>{{f.calories}}</td>
 					<td><a class="button is-primary is-light" href="{% url 'food:update' user.pk f.id %}">Edit</a></td>
 					<td><a class="button is-danger is-light" href="">Delete</a></td>
 					</tr>
