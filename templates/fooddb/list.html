@@ -7,14 +7,58 @@
 
 </div>
 <div class="content">
-  <div class="columnns">
+  <div class="columnns is-multiline is-mobile">
     <div class="column">
       <P>food Page</P>
-    </div>
-      {% for f in all_foods %}
-      {{ f }}
-      {% endfor %}
-  </div>
+    		{% if all_foods %}
+        <div class="table-container">
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth table-sort">
+            <thead>
+              <tr>
+                <th>Name</th>
+                <th>Fat</th>
+                <th>Sat Fat</th>
+                <th>Fat %</th>
+                <th>Carb</th>
+                <th>Sugars</th>
+                <th>Carb %</th>
+                <th>Protein</th>
+                <th>Protein %</th>
+                <th>Salts</th>
+                <th>Serving Size</th>
+                <th>Calories</th>
+                <th>Edit</th>
+                <th>Delete</th>
+              </tr>
+            </thead>
+            <tbody> 
+              {% for f in all_foods %} 
+              <tr>
+              <td>{{f.name}}</td>
+              <td>{{f.fats}}</td>
+              <td>{{f.sat_fats}}</td>
+              <td>{{f.fat_ratio}}</td>
+              <td>{{f.carbohydrate}}</td>
+              <td>{{f.sugars}}</td>
+              <td>{{f.carb_ratio}}</td>
+              <td>{{f.protein}}</td>
+              <td>{{f.protein_ratio}}</td>
+              <td>{{f.salt}}</td>
+              <td>{{f.serving_size}}</td>
+              <td>{{f.calories}}</td>
+              <td><a class="button is-primary is-light" href="">Edit</a></td>
+              <td><a class="button is-danger is-light" href="">Delete</a></td>
+              </tr>
+              {% endfor %}
+            </tbody>
+          </table>
+        </div>
+
+        {% else %}
+        <div class="column">
+          <p>Please add food the food index.</p>
+        </div>
+        {% endif %}
 </div>
 
 {% endblock content %}

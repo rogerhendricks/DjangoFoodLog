@@ -1,11 +1,12 @@
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views.generic import (TemplateView, ListView,DetailView,
                                     CreateView, DeleteView, UpdateView, 
                                     FormView, View)
 # Login and Permissions
 from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
-
+from django.contrib import messages
+from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse, reverse_lazy
 from datetime import date
 # local 
@@ -14,15 +15,15 @@ from .models import Food
 
 
 # CRUD Views
-class FoodCreate(CreateView):
+class FoodCreate(SuccessMessageMixin, CreateView):
   login_url = '/accounts/login/'
   redirect_field_name = 'redirect_to'
   model = Food
   form_class = forms.FoodForm
   template_name = 'fooddb/create.html'
+  success_message = "created successfully"
 
-  
-  
+
 class FoodList(ListView):
   login_url = '/accounts/login/'
   redirect_field_name = 'redirect_to'
@@ -34,3 +35,5 @@ class FoodList(ListView):
   def get_queryset(self):
       #return Food.objects.filter(mealDate = date.today())
       return Food.objects.all()
+
+

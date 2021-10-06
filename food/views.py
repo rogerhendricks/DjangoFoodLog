@@ -111,7 +111,7 @@ class FoodAdd(LoginRequiredMixin, TemplateView):
         
         formset.save()
         user = self.request.user.id
-        return redirect(reverse_lazy('food:listfood',  kwargs={'username': user}))
+        return redirect(reverse_lazy('food:home',  kwargs={'username': user}))
  
 
 class DailyFoodList(ListView):

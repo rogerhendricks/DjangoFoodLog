@@ -75,13 +75,15 @@ class TestFood(db.Model):
   meal = db.CharField(max_length=30, choices=meal_choices, null=True)
   serving = db.DecimalField(max_digits=2, decimal_places=1, null=True )
   food = db.ForeignKey(food.Food, on_delete=db.DO_NOTHING)
+  calories = db.DecimalField(max_digits=6, decimal_places=2,null=True)
   client = db.ForeignKey(settings.AUTH_USER_MODEL, on_delete=db.CASCADE)
+  
 
   class Meta:
       ordering = ('-mealDate',)
 
   def get_absolute_url(self):
-        return reverse('food:listfood', kwargs={"pk": self.pk})
+        return reverse('food:home', kwargs={"pk": self.pk})
 
   def __str__(self):
         return '%s %s %s' % (self.mealDate, self.meal, self.food)
