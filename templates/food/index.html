@@ -4,9 +4,9 @@
 {% block content %}
 <div class="block">
   <a class="button is-small" href="{% url 'food:dailyfood' user.pk %}">Daily List</a>
-  <a class="button is-small" href="{% url 'food:daily' user.pk %}">All Food</a>
-  <!-- <a class="button is-small" href="{% url 'food:create' user.pk %}">Add Food</a> -->
-  <a class="button is-small" href="{% url 'food:favorites' user.pk %}">Add Favorite</a>
+  <!-- <a class="button is-small" href="">All Food</a> -->
+  <!-- <a class="button is-small" href="">Add Food</a> -->
+  <!-- <a class="button is-small" href="">Add Favorite</a> -->
   <a class="button is-small" href="{% url 'fooddb:index' %}">Food DB</a>
 </div>
 <div>
@@ -56,11 +56,13 @@
 
     </div>
   </section>
+  <div>
   </div>
-
+  </div>
 {{ data|json_script:"data" }}
 <script type="text/javascript">
   const ml_data = JSON.parse(document.getElementById('data').textContent); 
+  console.log(ml_data);
 </script>
 <script src="{% static 'js/foodData.js' %}"></script>
 <script>

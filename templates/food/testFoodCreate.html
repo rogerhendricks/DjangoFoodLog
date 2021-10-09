@@ -11,7 +11,11 @@
       {% for form in food_formset %}
       <div class='box' id="food-form" style="background-color: hsl(219, 70%, 96%);">
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
-      {{ form.as_table }}
+      <div class="columns is-mobile">
+        <div class="column">
+            {{ form.as_table }}
+        </div>
+      </div>
       </div>
       {% endfor %}
         <div class="control" id="control">

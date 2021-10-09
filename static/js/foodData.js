@@ -11,9 +11,11 @@ function fooddata() {
     var todayData = ml_data.filter(a => {
       var date = new Date(a.mealDate).toISOString().substring(0, 10);
       //return (date >= startDate && date <= endDate);
-      console.log(stringDate);
+      //console.log(stringDate);
       return (date == stringDate);
+      
     });
+    
     // get monthly macro count comparing current month to a.mealDate ? month
     var monthlyData = ml_data.filter(a => {
       var date = a.mealDate.slice(5, 7);
@@ -26,9 +28,9 @@ function fooddata() {
       let totalProRatio = 0;
       let totalCarbRatio = 0;
       for (const i of Object.entries(todayData)) {
-        let tfr = parseFloat(i[1]['fat_ratio']);
-        let tpr = parseFloat(i[1]['protein_ratio']);
-        let tcr = parseFloat(i[1]['carb_ratio']);
+        let tfr = parseFloat(i[1]['food__fat_ratio']);
+        let tpr = parseFloat(i[1]['food__protein_ratio']);
+        let tcr = parseFloat(i[1]['food__carb_ratio']);
         totalFatRatio  += tfr;
         totalProRatio += tpr;
         totalCarbRatio += tcr;
@@ -43,10 +45,10 @@ function fooddata() {
       let monthlyFatRatio = 0;
       let monthlyProRatio = 0;
       let monthlyCarbRatio = 0;
-      for (const i of Object.entries(todayData)) {
-        let mfr = parseFloat(i[1]['fat_ratio']);
-        let mpr = parseFloat(i[1]['protein_ratio']);
-        let mcr = parseFloat(i[1]['carb_ratio']);
+      for (const i of Object.entries(monthlyData)) {
+        let mfr = parseFloat(i[1]['food__fat_ratio']);
+        let mpr = parseFloat(i[1]['food__protein_ratio']);
+        let mcr = parseFloat(i[1]['food__carb_ratio']);
         monthlyFatRatio  += mfr;
         monthlyProRatio += mpr;
         monthlyCarbRatio += mcr;
