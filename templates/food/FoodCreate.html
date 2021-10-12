@@ -13,7 +13,22 @@
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
       <div class="columns is-mobile">
         <div class="column">
-            {{ form.as_table }}
+            <table class="table is-narrow" style="background-color: hsl(219, 70%, 96%);">
+              <tbody>
+                <tr>
+                  <td>{{form.mealDate.label}}</td>
+                  <td>{{form.mealDate}}</td>
+                  <td>{{form.meal.label}}</td>
+                  <td>{{form.meal|attr:"class:select is-small"}}</td>
+                  <td>{{form.food.label}}</td>
+                  <td>{{form.food|attr:"class:select is-small"}}</td>
+                  <td>{{form.serving.label}}</td>
+                  <td>{{form.serving|attr:"class:input is-small"}}</td>
+                  <td>{{form.calories.label}}</td>
+                  <td>{{form.calories|attr:"class:input is-small"|attr:"readonly"}}</td>                
+                </tr>
+              </tbody>
+            </table>
         </div>
       </div>
       </div>

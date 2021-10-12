@@ -91,9 +91,10 @@ class FoodForm(forms.ModelForm):
     }
 
 #FoodFormSet = formset_factory(TestFoodForm, max_num = 10, absolute_max=10)
-FoodFormSet = modelformset_factory(Food,fields={"mealDate", "meal", "serving","food","calories", "client"},
+FoodFormSet = modelformset_factory(Food,fields={"mealDate", "meal", "serving","calories", "food", "client"},
 widgets = {
       "client": forms.HiddenInput(),
+      
       "mealDate": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
     }
 )

@@ -14,6 +14,7 @@ from django.shortcuts import redirect
 # local 
 from food import forms
 from .models import Food
+from fooddb.models import Food as Fooddb
 
 # Error Pages
 def permission_denied_view(request, exception):
@@ -106,26 +107,46 @@ class FoodAdd(LoginRequiredMixin, TemplateView):
     login_url = '/accounts/login/'
     redirect_field_name = 'redirect_to'
     model = Food
-    template_name = 'food/testFoodCreate.html'
+    template_name = 'food/FoodCreate.html'
 
     def get(self, *args, **kwargs):
       user = self.kwargs.get('username')
       print(user)
-      formset = forms.FoodFormSet(queryset=Food.objects.none(), initial=[{'client': user}] ,auto_id=False) # initial={'client': user}
+      formset = forms.FoodFormSet(queryset=Food.objects.none(), initial=[{'client': user, 'calories': 0}] ,auto_id=False) # initial={'client': user}
       return self.render_to_response({'food_formset':formset})
     
     def post(self, *args, **kwargs):
       formset = forms.FoodFormSet(data=self.request.POST, auto_id=False)
       if formset.is_valid():
-        formset.save()
+        for f in formset:
+          f.save(commit=False)
+          
+          s = f.cleaned_data['serving']
+          cFood = f.cleaned_data['food']
+          t = Fooddb.objects.get(name=cFood)
+          foodCal = t.calories
+          #c =t['calories']
+          #mulCal = c*s
+          print(foodCal*s)
+          #tp = f.cleaned_data['calories'] = foodCal*s
+          f.instance.calories = foodCal*s
+          f.save()
+        #formset.save()
         user = self.request.user.id
         return redirect(reverse_lazy('food:home',  kwargs={'username': user}))
- 
+
+    # def post(self, *args, **kwargs):
+    #   formset = forms.FoodFormSet(data=self.request.POST, auto_id=False)
+    #   if formset.is_valid():
+        
+    #     formset.save()
+    #     user = self.request.user.id
+    #     return redirect(reverse_lazy('food:home',  kwargs={'username': user}))
 
 class DailyFoodList(ListView):
   login_url = '/accounts/login/'
   redirect_field_name = 'redirect_to'
-  template_name = 'food/testTable.html'
+  template_name = 'food/Table.html'
   model = Food
   context_object_name = 'all_food'
   paginate_by = 10
