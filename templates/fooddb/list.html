@@ -1,18 +1,22 @@
 {% extends '_layout.html'  %}
-{% block title %} Food {% endblock title %}
-
+{% block title %} Food List {% endblock title %}
+{% load static %}
 {% block content %}
-<div>
-  <a type='button'class='button is-secondary' href="{% url 'fooddb:create' %}">Create</a>
+    <div>
+        <a type='button'class='button is-secondary is-small' href="{% url 'fooddb:create' %}">Create Food</a>
+    </div>
 
-</div>
 <div class="content">
   <div class="columnns is-multiline is-mobile">
     <div class="column">
-      <P>food Page</P>
     		{% if all_foods %}
         <div class="table-container">
-          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth table-sort">
+            <div class="level">
+              <div class="level-left">
+                <input type="text" id="foodInput" onkeyup="filterFood()" placeholder="Search for names..">
+              </div>
+            </div>
+          <table class="table is-bordered is-striped is-narrow is-hoverable is-fullwidth table-sort" id="foodTable">
             <thead>
               <tr>
                 <th>Name</th>
@@ -61,4 +65,6 @@
         {% endif %}
 </div>
 
+<script src="{% static 'js/table-filter.js' %}"></script>
+<script src="{% static 'js/table-sort.js' %}"></script>
 {% endblock content %}

@@ -11,9 +11,9 @@
       {% for form in food_formset %}
       <div class='box' id="food-form" style="background-color: hsl(219, 70%, 96%);">
       {% for hidden in form.hidden_fields %} {{ hidden }} {% endfor %}
-      <div class="columns is-mobile">
-        <div class="column">
-            <table class="table is-narrow" style="background-color: hsl(219, 70%, 96%);">
+
+          <div class"table-container">
+            <table class="table is-narrow" style="background-color: hsl(219, 70%, 96%);padding:5rem;">
               <tbody>
                 <tr>
                   <td>{{form.mealDate.label}}</td>
@@ -24,14 +24,13 @@
                   <td>{{form.food|attr:"class:select is-small"}}</td>
                   <td>{{form.serving.label}}</td>
                   <td>{{form.serving|attr:"class:input is-small"}}</td>
-                  <td>{{form.calories.label}}</td>
-                  <td>{{form.calories|attr:"class:input is-small"|attr:"readonly"}}</td>                
+                  
                 </tr>
               </tbody>
             </table>
+          </div>
         </div>
-      </div>
-      </div>
+
       {% endfor %}
         <div class="control" id="control">
           <button type="submit" class="button is-link">Save</button>

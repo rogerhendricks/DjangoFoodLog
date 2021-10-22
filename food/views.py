@@ -7,7 +7,7 @@ from django.core.exceptions import PermissionDenied
 from django.contrib.auth.mixins import LoginRequiredMixin, PermissionRequiredMixin
 
 from django.urls import reverse, reverse_lazy
-from datetime import date
+from datetime import date, datetime
 from django.core import serializers
 from django.db import transaction
 from django.shortcuts import redirect
@@ -30,8 +30,10 @@ class MealPageView(LoginRequiredMixin,TemplateView):
   def get_context_data(self, **kwargs):
     user = self.request.user.id
     context = super(MealPageView, self).get_context_data(**kwargs)
-    #d = Food.objects.filter(client = user).values()
-    d = Food.objects.filter(client = user).select_related('food').values(
+    today = datetime.now()
+    month = today.month
+    year = today.year
+    d = Food.objects.filter(client = user).filter(mealDate__year=year, mealDate__month=month).select_related('food').values(
       'mealDate',
       'food__name',
       'food__calories', 

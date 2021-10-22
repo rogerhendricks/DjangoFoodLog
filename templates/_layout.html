@@ -36,13 +36,13 @@
                         {% if user.is_authenticated %}
                             <p class="navbar-item" style="margin-left: 0.25rem; color: white;">{{user.username}}</p>
                             <div class="buttons">
-                              <a  class="button is-primary" href="{% url 'admin:index' %}">Admin</a>
-                              <a  class="button is-danger" href="{% url 'logout' %}">Logout</a>
+                              <a  class="button is-primary is-small" href="{% url 'admin:index' %}">Admin</a>
+                              <a  class="button is-danger is-small" href="{% url 'logout' %}">Logout</a>
                             </div>
                         {% else %}
                             <div class="buttons">
-                            <a class="button is-primary" href="{% url 'login' %}">Login</a>
-                            <a class="button is-light" href="{% url 'accounts:signup' %}">Sign Up</a>
+                            <a class="button is-primary is-small" href="{% url 'login' %}">Login</a>
+                            <a class="button is-light is-small" href="{% url 'accounts:signup' %}">Sign Up</a>
                             </div>
                         {% endif %}
                         </div>

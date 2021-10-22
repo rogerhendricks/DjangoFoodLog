@@ -17,9 +17,9 @@ class Food(db.Model):
     protein = db.DecimalField(max_digits=4, decimal_places=2,null=True)
     salt = db.DecimalField(max_digits=6, decimal_places=2,null=True)
     calories = db.DecimalField(max_digits=6, decimal_places=2,null=True)
-    fat_ratio = db.DecimalField(max_digits=6, decimal_places=2)
-    carb_ratio = db.DecimalField(max_digits=6, decimal_places=2)
-    protein_ratio = db.DecimalField(max_digits=6, decimal_places=2)
+    fat_ratio = db.DecimalField(max_digits=6, decimal_places=2,null=True)
+    carb_ratio = db.DecimalField(max_digits=6, decimal_places=2,null=True)
+    protein_ratio = db.DecimalField(max_digits=6, decimal_places=2,null=True)
     serving_size = db.DecimalField(max_digits=6, decimal_places=3,null=True)
 
 

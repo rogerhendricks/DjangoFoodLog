@@ -66,6 +66,7 @@ class DailyFoodForm(forms.ModelForm):
     }
     widgets = {
       "client": forms.HiddenInput(),
+      
       "Day": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
     }
 
@@ -94,7 +95,7 @@ class FoodForm(forms.ModelForm):
 FoodFormSet = modelformset_factory(Food,fields={"mealDate", "meal", "serving","calories", "food", "client"},
 widgets = {
       "client": forms.HiddenInput(),
-      
+      "calories": forms.HiddenInput(),
       "mealDate": forms.DateInput(attrs={"class": "datepicker", "type": "date"}),
     }
 )

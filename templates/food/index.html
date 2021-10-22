@@ -4,11 +4,13 @@
 {% block content %}
 <div class="block">
   <a class="button is-small" href="{% url 'food:dailyfood' user.pk %}">Daily List</a>
+  <a type='button 'class='button is-small' href="{% url 'food:addfood' user.pk %}">Add Food</a>
   <!-- <a class="button is-small" href="">All Food</a> -->
   <!-- <a class="button is-small" href="">Add Food</a> -->
   <!-- <a class="button is-small" href="">Add Favorite</a> -->
-  <a class="button is-small" href="{% url 'fooddb:index' %}">Food DB</a>
+  <a class="button is-small" href="{% url 'fooddb:index' %}">Create Food</a>
 </div>
+
 <div>
   <section class="hero is-info">
     <div class="hero-body">
@@ -16,7 +18,14 @@
         Daily Macro Ratio
       </p>
       <div class="columns is-mobile is-multiline is-centered">
-        <div class="column ">
+        <div class="column is-narrow ">
+          <div class="box" style="width:250px;">
+            <canvas id="dailyRatioChart" width="200" height="200"></canvas>
+            <p class="is-size-4 has-text-centered">Daily Ratio</p>
+          </div>
+
+        </div>
+        <div class="column">
           <p class="subtitle is-size-1 has-text-centered" id="tfr"></p>
           <p class="is-size-4 has-text-centered">Fat Ratio</p>
         </div>
@@ -40,6 +49,12 @@
         Monthly Macro Ratio
       </p>
       <div class="columns is-mobile is-multiline is-centered">
+        <div class="column is-narrow ">
+          <div class="box" style="width:250px;">
+            <canvas id="monthlyRatioChart" width="200" height="200"></canvas>
+            <p class="is-size-4 has-text-centered">Daily Ratio</p>
+          </div>
+        </div>
         <div class="column ">
           <p class="subtitle is-size-1 has-text-centered" id="mfr"></p>
           <p class="is-size-4 has-text-centered">Fat Ratio</p>
@@ -60,13 +75,15 @@
   </div>
   </div>
 {{ data|json_script:"data" }}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.5.1/chart.min.js"></script>
 <script type="text/javascript">
   const ml_data = JSON.parse(document.getElementById('data').textContent); 
   console.log(ml_data);
 </script>
 <script src="{% static 'js/foodData.js' %}"></script>
+<!-- <script src="{% static 'js/chartData.js' %}"></script> -->
 <script>
   document.onload = fooddata();
-  //document.onload = resultProductData();
+  // document.onload = ratioChart();
 </script>
 {% endblock content %}
