@@ -101,6 +101,14 @@ class FoodUpdate(UpdateView):
   template_name = 'food/update.html'
 
 
+class FoodDelete(DeleteView):
+  #permission_required = ('app.delete_client')
+  login_url = '/login/'
+  model = Food
+
+  def get_success_url(self):
+        user = self.request.user.id
+        return reverse_lazy('food:dailyfood',  kwargs={'username': user})
 
 
 class FoodAdd(LoginRequiredMixin, TemplateView):
