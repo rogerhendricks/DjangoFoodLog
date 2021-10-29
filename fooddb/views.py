@@ -24,7 +24,7 @@ class FoodCreate(SuccessMessageMixin, CreateView):
   success_message = "created successfully"
 
 
-class FoodList(ListView):
+class FoodList(ListView, UpdateView):
   login_url = '/accounts/login/'
   redirect_field_name = 'redirect_to'
   template_name = 'fooddb/list.html'
@@ -37,3 +37,12 @@ class FoodList(ListView):
       return Food.objects.all()
 
 
+# class FoodEdit(UpdateView):
+#   login_url = '/accounts/login/'
+#   redirect_field_name = 'redirect_to'
+#   template_name = 'fooddb/list.html'
+#   model = Food
+
+
+class foodDelete():
+  pass
